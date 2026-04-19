@@ -176,3 +176,207 @@ if __name__ == "__main__":
     
     
     print("tous les tests sont validés")
+
+
+note = 0
+
+# =========================
+# CONSTRUCTEUR (2 tests)
+# =========================
+try:
+    g = Graphe_V1(3)
+    assert g.ordre == 3
+except:
+    print("Erreur constructeur : attribut ordre incorrect")
+else:
+    note += 1
+
+try:
+    g = Graphe_V1(3)
+    assert len(g.matrice) == 3 and all(len(ligne) == 3 for ligne in g.matrice)
+except:
+    print("Erreur constructeur : matrice mal initialisée")
+else:
+    note += 1
+
+# =========================
+# ajouter_arc (2 tests)
+# =========================
+try:
+    g = Graphe_V1(2)
+    g.ajouter_arc(0, 1)
+    assert g.matrice[0][1] == 1
+except:
+    print("Erreur ajouter_arc : incrément simple incorrect")
+else:
+    note += 1
+
+try:
+    g = Graphe_V1(2)
+    g.ajouter_arc(0, 1)
+    g.ajouter_arc(0, 1)
+    assert g.matrice[0][1] == 2
+except:
+    print("Erreur ajouter_arc : incrément multiple incorrect")
+else:
+    note += 1
+
+# =========================
+# est_adjacent (2 tests)
+# =========================
+try:
+    g = Graphe_V1(2, [[0,1],[1,0]])
+    assert g.est_adjacent(0,1) == True
+except:
+    print("Erreur est_adjacent : devrait être True")
+else:
+    note += 1
+
+try:
+    g = Graphe_V1(2, [[0,1],[1,0]])
+    assert g.est_adjacent(0,0) == False
+except:
+    print("Erreur est_adjacent : boucle mal gérée")
+else:
+    note += 1
+
+# =========================
+# voisins (2 tests)
+# =========================
+try:
+    g = Graphe_V1(3, [[0,1,0],[1,0,1],[0,1,0]])
+    assert g.voisins(1) == [0,2]
+except:
+    print("Erreur voisins : liste incorrecte")
+else:
+    note += 1
+
+try:
+    g = Graphe_V1(3, [[0,0,0],[0,0,0],[0,0,0]])
+    assert g.voisins(0) == []
+except:
+    print("Erreur voisins : devrait être vide")
+else:
+    note += 1
+
+# =========================
+# degre (2 tests)
+# =========================
+try:
+    g = Graphe_V1(3, [[0,1,1],[1,0,0],[1,0,0]])
+    assert g.degre(0) == 2
+except:
+    print("Erreur degre : valeur incorrecte")
+else:
+    note += 1
+
+try:
+    g = Graphe_V1(3, [[0,0,0],[0,0,0],[0,0,0]])
+    assert g.degre(1) == 0
+except:
+    print("Erreur degre : devrait être 0")
+else:
+    note += 1
+
+# =========================
+# est_simple (2 tests)
+# =========================
+try:
+    g = Graphe_V1(2, [[0,1],[1,0]])
+    assert g.est_simple() == True
+except:
+    print("Erreur est_simple : devrait être True")
+else:
+    note += 1
+
+try:
+    g = Graphe_V1(2, [[0,2],[1,0]])
+    assert g.est_simple() == False
+except:
+    print("Erreur est_simple : devrait être False")
+else:
+    note += 1
+
+# =========================
+# est_oriente (2 tests)
+# =========================
+try:
+    g = Graphe_V1(2, [[0,1],[1,0]])
+    assert g.est_oriente() == False
+except:
+    print("Erreur est_oriente : devrait être False")
+else:
+    note += 1
+
+try:
+    g = Graphe_V1(2, [[0,1],[0,0]])
+    assert g.est_oriente() == True
+except:
+    print("Erreur est_oriente : devrait être True")
+else:
+    note += 1
+
+# =========================
+# arcs (2 tests)
+# =========================
+try:
+    g = Graphe_V1(2, [[0,1],[1,0]])
+    assert g.arcs() == 2
+except:
+    print("Erreur arcs : somme incorrecte")
+else:
+    note += 1
+
+try:
+    g = Graphe_V1(2, [[0,2],[0,0]])
+    assert g.arcs() == 2
+except:
+    print("Erreur arcs : gestion des poids incorrecte")
+else:
+    note += 1
+
+# =========================
+# supprimer_arc (2 tests)
+# =========================
+try:
+    g = Graphe_V1(2, [[0,1],[0,0]])
+    g.supprimer_arc(0,1)
+    assert g.matrice[0][1] == 0
+except:
+    print("Erreur supprimer_arc : décrément incorrect")
+else:
+    note += 1
+
+try:
+    g = Graphe_V1(2, [[0,0],[0,0]])
+    g.supprimer_arc(0,1)
+    assert g.matrice[0][1] == 0
+except:
+    print("Erreur supprimer_arc : ne doit pas passer sous 0")
+else:
+    note += 1
+
+# =========================
+# est_complet (2 tests)
+# =========================
+try:
+    g = Graphe_V1(3, [[0,1,1],[1,0,1],[1,1,0]])
+    assert g.est_complet() == True
+except:
+    print("Erreur est_complet : devrait être True")
+else:
+    note += 1
+
+try:
+    g = Graphe_V1(3, [[0,1,0],[1,0,1],[0,1,0]])
+    assert g.est_complet() == False
+except:
+    print("Erreur est_complet : devrait être False")
+else:
+    note += 1
+
+# =========================
+# NOTE FINALE
+# =========================
+print("Note finale :", note, "/20")
+print("tous les tests sont validés")
